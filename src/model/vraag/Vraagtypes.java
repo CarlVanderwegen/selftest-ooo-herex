@@ -4,7 +4,7 @@ public enum Vraagtypes {
     JANEE,
     MultipleChoice;
 
-    public static VraagType GetVraagType(String s){
+    public static VraagType getVraagType(String s){
         VraagType ret = null;
         switch (Vraagtypes.valueOf(s.toUpperCase())) {
             case JANEE:
