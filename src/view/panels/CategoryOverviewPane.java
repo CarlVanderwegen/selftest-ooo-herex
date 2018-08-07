@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.SelftestController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,11 +11,24 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.SelftestFacade;
+import model.category.CategoryType;
+
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class CategoryOverviewPane extends GridPane {
+public class CategoryOverviewPane extends GridPane implements Observer {
 	private TableView table;
 	private Button btnNew;
+	private SelftestController controller;
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof SelftestController) {
+			this.controller = (SelftestController)o;
+		}
+	}
 	
 	public CategoryOverviewPane() {
 		this.setPadding(new Insets(5, 5, 5, 5));
@@ -28,9 +42,13 @@ public class CategoryOverviewPane extends GridPane {
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("title"));
         table.getColumns().add(nameCol);
+
+
         TableColumn descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<CategoryType, String>("naam"));
         table.getColumns().add(descriptionCol);
+
+
 		this.add(table, 0, 1, 2, 6);
 		
 		btnNew = new Button("New");
@@ -44,5 +62,6 @@ public class CategoryOverviewPane extends GridPane {
 	public void setEditAction(EventHandler<MouseEvent> editAction) {
 		table.setOnMouseClicked(editAction);
 	}
+
 
 }
