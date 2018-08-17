@@ -45,6 +45,6 @@ public class MainCategory implements CategoryType{
 
     @Override
     public void addVraag(VraagType vraag) {
-        vragenLijst.addVraag(vraag);
+        vragenLijst.add(vraag);
     }
 }

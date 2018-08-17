@@ -31,7 +31,8 @@ public class TestPane extends GridPane {
 
 		submitButton = new Button("Submit");
 	}
-	
+
+
 	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
 		submitButton.setOnAction(processAnswerAction);
 	}

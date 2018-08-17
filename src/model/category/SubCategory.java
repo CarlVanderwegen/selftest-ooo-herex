@@ -52,7 +52,7 @@ public class SubCategory implements CategoryType {
 
     @Override
     public void addVraag(VraagType vraag) {
-        vraagLijst.addVraag(vraag);
+        vraagLijst.add(vraag);
 
     }
 

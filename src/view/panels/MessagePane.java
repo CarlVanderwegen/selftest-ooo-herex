@@ -33,6 +33,7 @@ public class MessagePane extends GridPane {
 			public void handle(ActionEvent event) {
 			}
 		});
+
 		add(testButton, 0,1,1,1);
 		setHalignment(testButton, HPos.CENTER);
 	}

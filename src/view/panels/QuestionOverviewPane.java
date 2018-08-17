@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.SelftestController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,7 +16,7 @@ public class QuestionOverviewPane extends GridPane {
 	private TableView table;
 	private Button btnNew;
 	
-	public QuestionOverviewPane() {
+	public QuestionOverviewPane(SelftestController selftestController) {
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -43,5 +44,6 @@ public class QuestionOverviewPane extends GridPane {
 	public void setEditAction(EventHandler<MouseEvent> editAction) {
 		table.setOnMouseClicked(editAction);
 	}
+
 
 }

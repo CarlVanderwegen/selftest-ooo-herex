@@ -1,6 +1,9 @@
 package view.panels;
 
+import controller.MyObservable;
 import controller.SelftestController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,25 +15,32 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.SelftestFacade;
+import model.category.CategoryList;
 import model.category.CategoryType;
-
-import java.util.Observable;
-import java.util.Observer;
+import model.vraag.VraagType;
 
 
-public class CategoryOverviewPane extends GridPane implements Observer {
+public class CategoryOverviewPane extends GridPane implements MyObserver {
 	private TableView table;
 	private Button btnNew;
-	private SelftestController controller;
+	private ObservableList<CategoryType> categoryTypes;
+	private SelftestController subject;
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (o instanceof SelftestController) {
-			this.controller = (SelftestController)o;
-		}
+	public void update(CategoryList catlist) {
+			this.categoryTypes = FXCollections.observableArrayList(catlist.getCatlist());
 	}
 	
-	public CategoryOverviewPane() {
+	public CategoryOverviewPane(SelftestController selftestController) {
+		this.subject = selftestController;
+		subject.registerObserver(this);
+		subject.notifyObserver();
+
+		for (CategoryType catt:categoryTypes) {
+			System.out.println(catt.getNaam());
+		}
+		System.out.println();
+
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -39,14 +49,16 @@ public class CategoryOverviewPane extends GridPane implements Observer {
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        TableColumn nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory("title"));
-        table.getColumns().add(nameCol);
+        TableColumn nameCol = new TableColumn("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<CategoryType, String>("naam"));
+
+        TableColumn descriptionCol = new TableColumn("Description");
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<CategoryType, String>("description"));
+
+        table.setItems(this.categoryTypes);
 
 
-        TableColumn descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<CategoryType, String>("naam"));
-        table.getColumns().add(descriptionCol);
+        table.getColumns().addAll(nameCol,descriptionCol);
 
 
 		this.add(table, 0, 1, 2, 6);
@@ -55,6 +67,8 @@ public class CategoryOverviewPane extends GridPane implements Observer {
 		this.add(btnNew, 0, 11, 1, 1);
 	}
 	
+
+
 	public void setNewAction(EventHandler<ActionEvent> newAction) {
 		btnNew.setOnAction(newAction);
 	}

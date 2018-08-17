@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.SelftestController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,7 +15,7 @@ public class CategoryDetailPane extends GridPane {
 	private TextField titleField, descriptionField;
 	private ComboBox categoryField;
 
-	public CategoryDetailPane() {
+	public CategoryDetailPane(SelftestController selftestController) {
 		this.setPrefHeight(150);
 		this.setPrefWidth(300);
 		

@@ -1,5 +1,6 @@
 package application;
 
+import controller.SelftestController;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,11 +19,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 
 		try {
-			QuestionOverviewPane questionOverviewPane = new QuestionOverviewPane();
-			QuestionDetailPane questionDetailPane = new QuestionDetailPane();
+			SelftestController selftestController = new SelftestController();
+			QuestionOverviewPane questionOverviewPane = new QuestionOverviewPane(selftestController);
+			QuestionDetailPane questionDetailPane = new QuestionDetailPane(selftestController);
 
-			CategoryOverviewPane categoryOverviewPanel = new CategoryOverviewPane();
-			CategoryDetailPane categoryDetailPanel = new CategoryDetailPane();
+			CategoryOverviewPane categoryOverviewPanel = new CategoryOverviewPane(selftestController);
+			CategoryDetailPane categoryDetailPanel = new CategoryDetailPane(selftestController);
 
 			TestPane testPane = new TestPane();
 			MessagePane messagePane = new MessagePane();
