@@ -1,7 +1,5 @@
 package view.panels;
 
-import java.util.Observer;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -37,5 +35,4 @@ public class MessagePane extends GridPane {
 		add(testButton, 0,1,1,1);
 		setHalignment(testButton, HPos.CENTER);
 	}
-
 }

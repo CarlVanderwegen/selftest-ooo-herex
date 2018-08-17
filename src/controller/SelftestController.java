@@ -1,20 +1,84 @@
 package controller;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.SelftestFacade;
-import view.panels.MyObserver;
-
+import view.panels.*;
 import java.util.ArrayList;
 
 public class SelftestController implements MyObservable {
 
+    private Group root;
+    private Scene scene;
+    private Stage stage;
+    private TestPane testPane;
+    public SelftestFacade facade;
+    private BorderPane borderPane;
+    private MessagePane messagePane;
     private ArrayList<MyObserver> observers;
-    public SelftestFacade facade = new SelftestFacade();
+    private QuestionDetailPane questionDetailPane;
+    private CategoryDetailPane categoryDetailPane;
+    private QuestionOverviewPane questionOverviewPane;
+    private CategoryOverviewPane categoryOverviewPane;
 
-    // observer code
-    public SelftestController() {
+
+    public SelftestController(Stage stage) {
         observers = new ArrayList<MyObserver>();
+
+        facade =  new SelftestFacade();
+        this.stage = stage;
+
+//        questionDetailPane = new QuestionDetailPane(this);
+//        categoryDetailPane = new CategoryDetailPane(this);
+//
+//        testPane = new TestPane(this, null);
+        mainPane();
+
     }
 
+    public void mainPane(){
+
+        borderPane= new AssesMainPane(this);
+        root = new Group();
+        scene = new Scene(root, 750, 400);
+        root.getChildren().add(borderPane);
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
+
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+
+    }
+
+    public void addCategoryView(String error){
+
+        categoryDetailPane = new CategoryDetailPane(this, error);
+        Group base = new Group();
+        scene = new Scene(base, 300, 150);
+        base.getChildren().add(categoryDetailPane);
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
+
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+
+    }
+
+    public void addCategoryModal(){
+
+    }
+
+
+    public void start(){
+        stage.show();
+    }
+
+
+// observer code
     @Override
     public void registerObserver(MyObserver observer) {
         observers.add(observer);
@@ -29,10 +93,9 @@ public class SelftestController implements MyObservable {
     @Override
     public void notifyObserver() {
         for (MyObserver observer:observers) {
-            observer.update(facade.getCatlist());
+            observer.update(facade);
         }
     }
-
 // rest
 
 

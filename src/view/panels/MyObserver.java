@@ -1,9 +1,9 @@
 package view.panels;
 
-import model.category.CategoryList;
+import model.SelftestFacade;
 
 
 public interface MyObserver {
-    public void update(CategoryList catlist);
+    public void update(SelftestFacade facade);
 
 }

@@ -9,8 +9,8 @@ public class MainCategory implements CategoryType{
     private VragenLijst vragenLijst;
 
     public MainCategory(String naam, String description) {
-        this.naam = naam;
-        this.description = description;
+        setNaam(naam);
+        setDescription(description);
         this.vragenLijst = new VragenLijst();
     }
 
