@@ -4,6 +4,11 @@ import model.category.CategoryList;
 import model.category.CategoryType;
 import model.category.MainCategory;
 import model.category.SubCategory;
+import model.vraag.JaNee;
+import model.vraag.VraagType;
+import model.vraag.VragenLijst;
+
+import java.util.ArrayList;
 
 public class SelftestFacade {
 
@@ -12,7 +17,10 @@ public class SelftestFacade {
 
 
     public SelftestFacade() {
-        catlist.add(new MainCategory("test 1", "the first one"));
+        CategoryType bla = new MainCategory("test 1", "the first one");
+        bla.addVraag(new JaNee("monty", "change after you chose?"));
+        catlist.add(bla);
+
     }
 
 
@@ -33,6 +41,14 @@ public class SelftestFacade {
 
     public  void removeCategory(String cat) {
         this.catlist.remove(cat);
+    }
+
+    public ArrayList<VraagType> getVragen(){
+        ArrayList<VraagType> vl = new ArrayList<>();
+        for (CategoryType ct: catlist.getCatlist()) {
+            vl.addAll(ct.getVragen().getVraaagLijst());
+        }
+        return vl;
     }
 
 

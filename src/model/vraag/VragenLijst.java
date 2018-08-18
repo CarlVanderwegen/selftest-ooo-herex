@@ -22,7 +22,7 @@ public class VragenLijst {
     public void add(VraagType cat){
         if (cat == null)
             throw new DomainException("category is non existant");
-        else if (vraaagLijst.indexOf(cat) !=0)
+        else if (vraaagLijst.indexOf(cat) >0)
             throw new DomainException("category allready exsists");
         this.vraaagLijst.add(cat);
     }

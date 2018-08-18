@@ -7,9 +7,9 @@ public interface VraagType {
 
     String getNaam();
     String getDescription();
-    CategoryType getCategory();
+    //CategoryType getCategory();
 
     void setNaam(String naam);
     void setDescription(String description);
-    void setCategory(CategoryType category);
+    //void setCategory(CategoryType category);
 }

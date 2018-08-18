@@ -16,15 +16,15 @@ import javafx.scene.layout.GridPane;
 import model.SelftestFacade;
 import model.category.CategoryType;
 
-
 public class CategoryOverviewPane extends GridPane implements MyObserver {
 
 	private TableView table;
 	private Button btnNew;
-	private ObservableList<CategoryType> categoryTypes;
+	private ObservableList<CategoryType> categoryTypes = FXCollections.observableArrayList();
 	private SelftestController subject;
 
 	public CategoryOverviewPane(SelftestController selftestController) {
+
 		this.subject = selftestController;
 		subject.registerObserver(this);
 		subject.notifyObserver();

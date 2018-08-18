@@ -5,7 +5,7 @@ import model.category.CategoryType;
 
 public class MultipleChoice implements VraagType {
     String naam , description;
-    CategoryType category;
+    //CategoryType category;
     @Override
     public String getNaam() {
         return naam;
@@ -16,10 +16,10 @@ public class MultipleChoice implements VraagType {
         return description;
     }
 
-    @Override
-    public CategoryType getCategory() {
-        return category;
-    }
+//    @Override
+//    public CategoryType getCategory() {
+//        return category;
+//    }
 
 
     @Override
@@ -36,8 +36,8 @@ public class MultipleChoice implements VraagType {
         this.description = description;
     }
 
-    @Override
-    public void setCategory(CategoryType superCat) {
-        this.category = superCat;
-    }
+//    @Override
+//    public void setCategory(CategoryType superCat) {
+//        this.category = superCat;
+//    }
 }
