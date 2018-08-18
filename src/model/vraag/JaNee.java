@@ -1,13 +1,11 @@
 package model.vraag;
 
 import model.DomainException;
-import model.category.CategoryType;
 
 public class JaNee implements VraagType{
-    String naam , description;
-    CategoryType category;
-
     String question, correctAnswer, feedback,otherAnswer;
+    int score;
+
 
     public JaNee() {
     }
@@ -17,6 +15,7 @@ public class JaNee implements VraagType{
         setCorrectAnswer(correctAnswer);
         setOtherAnswer(otherAnswer);
         setFeedback(feedback);
+        score = -1;
     }
 
     @Override
@@ -32,6 +31,11 @@ public class JaNee implements VraagType{
     @Override
     public String getFeedback() {
         return feedback;
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 
     @Override
@@ -53,6 +57,14 @@ public class JaNee implements VraagType{
         if (feedback.trim().isEmpty())
             throw new DomainException("feedback can't be empty");
         this.feedback = feedback;
+    }
+
+    @Override
+    public void isCorrect(String answer ) {
+        if (this.getCorrectAnswer()==answer)
+            score = 1;
+        else
+            score=0;
     }
 
     public String getOtherAnswer() {

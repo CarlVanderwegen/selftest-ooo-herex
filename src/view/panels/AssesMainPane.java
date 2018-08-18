@@ -19,7 +19,7 @@ public class AssesMainPane extends BorderPane {
 	public AssesMainPane(SelftestController controller){
 
 	    this.tabPane = new TabPane();
-        this.messagePane = new MessagePane();
+        this.messagePane = new MessagePane(controller, null);
 
 	    this.messageBox = new FlowPane(messagePane);
 	    this.messageBox.setAlignment(Pos.CENTER);

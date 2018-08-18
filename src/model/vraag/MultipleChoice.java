@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class MultipleChoice implements VraagType {
     private String question, correctAnswer, feedback;
     private ArrayList<String> otherAnswers;
+    int score;
 
     public MultipleChoice() {
     }
@@ -16,6 +17,7 @@ public class MultipleChoice implements VraagType {
         setCorrectAnswer(correctAnswer);
         setOtherAnswers(otherAnswers);
         setFeedback(feedback);
+        score = -1;
     }
 
     @Override
@@ -31,6 +33,11 @@ public class MultipleChoice implements VraagType {
     @Override
     public String getFeedback() {
         return feedback;
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 
     @Override
@@ -52,6 +59,14 @@ public class MultipleChoice implements VraagType {
         if (feedback.trim().isEmpty())
             throw new DomainException("feedback can't be empty");
         this.feedback = feedback;
+    }
+
+    @Override
+    public void isCorrect(String answer ) {
+        if (this.getCorrectAnswer()==answer)
+            score = 1;
+        else
+            score=0;
     }
 
     public ArrayList<String> getOtherAnswers() {

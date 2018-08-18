@@ -3,6 +3,7 @@ package view.panels;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.SelftestController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,13 +11,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import model.SelftestFacade;
 
-public class TestPane extends GridPane {
+public class TestPane extends GridPane implements MyObserver{
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
+	private SelftestController subject;
+	private SelftestFacade facade;
 
-	public TestPane (){
+	public TestPane (SelftestController controller, String error){
+		this.subject = controller;
+		subject.registerObserver(this);
+		subject.notifyObserver();
+
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
 
@@ -43,5 +51,10 @@ public class TestPane extends GridPane {
 			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
 		}
 		return selected;
+	}
+
+	@Override
+	public void update(SelftestFacade facade) {
+		this.facade = facade;
 	}
 }

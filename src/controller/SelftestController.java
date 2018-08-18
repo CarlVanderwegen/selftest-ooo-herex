@@ -21,8 +21,6 @@ public class SelftestController implements MyObservable {
     private ArrayList<MyObserver> observers;
     private QuestionDetailPane questionDetailPane;
     private CategoryDetailPane categoryDetailPane;
-    private QuestionOverviewPane questionOverviewPane;
-    private CategoryOverviewPane categoryOverviewPane;
 
 
     public SelftestController(Stage stage) {
@@ -80,6 +78,19 @@ public class SelftestController implements MyObservable {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+    }
+    public void setQuestionableView(String error){
+        testPane = new TestPane(this, error);
+        Group base = new Group();
+        scene = new Scene(base, 750, 300);
+        base.getChildren().add(testPane);
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
+
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+
     }
 
 
