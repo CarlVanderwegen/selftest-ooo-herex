@@ -42,6 +42,8 @@ public class QuestionOverviewPane extends GridPane implements MyObserver {
 
 		table.setItems(this.vragen);
 		btnNew = new Button("New");
+		btnNew.setOnAction(new SetNewAction());
+
 
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
@@ -53,9 +55,9 @@ public class QuestionOverviewPane extends GridPane implements MyObserver {
 
 	@Override
 	public void update(SelftestFacade facade) {
-		for (CategoryType cat: facade.getCatlist().getCatlist()) {
+		for (CategoryType cat: facade.getCatlist()) {
 			for (VraagType vraag:cat.getVragen().getVraaagLijst()) {
-				vragen.add(new RowData(cat.getNaam(), vraag.getNaam()));
+				vragen.add(new RowData(cat.getNaam(), vraag.getQuestion()));
 				System.out.println("added");
 			}
 		}
@@ -80,6 +82,11 @@ public class QuestionOverviewPane extends GridPane implements MyObserver {
 		public String getVraag(){ return vraag; }
 	}
 
-
+	class SetNewAction implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			subject.setQuestionDetailPane(null);
+		}
+	}
 
 }

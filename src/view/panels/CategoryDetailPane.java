@@ -49,7 +49,7 @@ public class CategoryDetailPane extends GridPane {
 		ArrayList<String> cats = new ArrayList<>();
 		categoryField.getItems().add("");
 		cats.add("");
-		for (CategoryType cat:controller.facade.getCatlist().getCatlist()) {
+		for (CategoryType cat:controller.facade.getCatlist()) {
 			if (cat instanceof MainCategory){
 				categoryField.getItems().add(cat.getNaam());
 				cats.add(cat.getNaam());

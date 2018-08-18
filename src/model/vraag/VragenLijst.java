@@ -29,7 +29,7 @@ public class VragenLijst {
 
     public VraagType getVraag(String catnaam){
         for (VraagType cat:vraaagLijst) {
-            if (cat.getNaam().trim().toLowerCase() == catnaam.trim().toLowerCase())
+            if (cat.getQuestion().trim().toLowerCase() == catnaam.trim().toLowerCase())
                 return cat;
         }
         throw new DomainException("there is no category by that name");

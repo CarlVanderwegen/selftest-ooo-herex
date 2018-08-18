@@ -1,15 +1,17 @@
 package model.vraag;
 
-import model.category.CategoryType;
+
 
 public interface VraagType {
 
+    String getQuestion();
+    String getCorrectAnswer();
+    String getFeedback();
 
-    String getNaam();
-    String getDescription();
-    //CategoryType getCategory();
+    void setQuestion(String question);
+    void setCorrectAnswer(String correctAnswer);
+    void setFeedback(String feedback);
 
-    void setNaam(String naam);
-    void setDescription(String description);
-    //void setCategory(CategoryType category);
+
+
 }

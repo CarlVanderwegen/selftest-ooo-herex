@@ -12,6 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import model.category.CategoryType;
+import model.category.MainCategory;
+
+import java.util.ArrayList;
 
 public class QuestionDetailPane extends GridPane {
 	private Button btnOK, btnCancel;
@@ -20,7 +24,12 @@ public class QuestionDetailPane extends GridPane {
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
 
-	public QuestionDetailPane(SelftestController selftestController) {
+	public QuestionDetailPane(SelftestController controller, String error) {
+
+
+
+
+
 		this.setPrefHeight(300);
 		this.setPrefWidth(320);
 		
@@ -39,21 +48,33 @@ public class QuestionDetailPane extends GridPane {
 		add(new Label("Statements: "), 0, 2, 1, 1);
 		statementsArea = new TextArea();
 		statementsArea.setPrefRowCount(5);
-		statementsArea.setEditable(false);
+//		statementsArea.setEditable(false);
 		add(statementsArea, 1, 2, 2, 5);
 
-		Pane addRemove = new HBox();
-		btnAdd = new Button("add");
-		btnAdd.setOnAction(new AddStatementListener());
-		addRemove.getChildren().add(btnAdd);
-
-		btnRemove = new Button("remove");
-		btnRemove.setOnAction(new RemoveStatementListener());
-		addRemove.getChildren().add(btnRemove);
-		add(addRemove, 1, 8, 2, 1);
+//		Pane addRemove = new HBox();
+//		btnAdd = new Button("add");
+//		btnAdd.setOnAction(new AddStatementListener());
+//		addRemove.getChildren().add(btnAdd);
+//
+//		btnRemove = new Button("remove");
+//		btnRemove.setOnAction(new RemoveStatementListener());
+//		addRemove.getChildren().add(btnRemove);
+//		add(addRemove, 1, 8, 2, 1);
 
 		add(new Label("Category: "), 0, 9, 1, 1);
 		categoryField = new ComboBox();
+		// --------------------------------------------------
+		categoryField.setEditable(false);
+		ArrayList<String> cats = new ArrayList<>();
+		for (CategoryType cat:controller.facade.getCatlist()) {
+			if (cat instanceof MainCategory){
+				categoryField.getItems().add(cat.getNaam());
+				cats.add(cat.getNaam());
+			}
+		}
+		categoryField.getItems().setAll(cats);
+		categoryField.setValue(cats.get(0));
+		//----------------------------------------------------
 		add(categoryField, 1, 9, 2, 1);
 
 		add(new Label("Feedback: "), 0, 10, 1, 1);
@@ -64,11 +85,36 @@ public class QuestionDetailPane extends GridPane {
 		btnCancel.setText("Cancel");
 		add(btnCancel, 0, 11, 1, 1);
 
+		btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				controller.mainPane();
+			}
+		});
+
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
 		btnOK.setText("Save");
 		add(btnOK, 1, 11, 2, 1);
-		
+
+
+		btnOK.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				System.out.println(	"category: " 		+ categoryField.getValue().toString() +
+									" / question: " 		+ questionField.getText() +
+									" / correct: " 	+ statementField.getText() +
+									" / description: " 	+ statementsArea.getText() +
+									" / feedback: " 	+ feedbackField.getText());
+
+				try {
+					controller.facade.addVraag(categoryField.getValue().toString(),questionField.getText(),statementField.getText(), statementsArea.getText(), feedbackField.getText());
+				}catch (Exception e){
+					controller.setQuestionDetailPane(e.getMessage());
+					return;
+				}
+				controller.mainPane();
+			}
+		});
+
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
@@ -90,4 +136,7 @@ public class QuestionDetailPane extends GridPane {
 		public void handle(ActionEvent e) {
 		}
 	}
+
+
+
 }

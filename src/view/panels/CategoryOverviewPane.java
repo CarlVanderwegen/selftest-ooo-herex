@@ -55,7 +55,7 @@ public class CategoryOverviewPane extends GridPane implements MyObserver {
 
 	@Override
 	public void update(SelftestFacade facade) {
-		this.categoryTypes = FXCollections.observableArrayList(facade.getCatlist().getCatlist());
+		this.categoryTypes = FXCollections.observableArrayList(facade.getCatlist());
 	}
 
 

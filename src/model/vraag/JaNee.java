@@ -7,45 +7,60 @@ public class JaNee implements VraagType{
     String naam , description;
     CategoryType category;
 
-    public JaNee(){
+    String question, correctAnswer, feedback;
+    String otherAnswer;
 
+    public JaNee() {
     }
 
-    public JaNee(String naam, String description) {
-        setNaam(naam);
-        setDescription(description);
-    }
-
-    @Override
-    public String getNaam() {
-        return naam;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-//    @Override
-//    public CategoryType getCategory() {
-//        return category;
-//    }
-
-
-    @Override
-    public void setNaam(String naam) {
-        if (naam.trim().isEmpty())
-            throw new DomainException("question name can't be empty");
-        this.naam = naam;
+    public JaNee(String question, String correctAnswer, String otherAnswer, String feedback) {
+        setQuestion(question);
+        setCorrectAnswer(correctAnswer);
+        setOtherAnswer(otherAnswer);
+        setFeedback(feedback);
     }
 
     @Override
-    public void setDescription(String description) {
-        if (description.trim().isEmpty())
-            throw new DomainException("question description can't be empty");
-        this.description = description;
+    public String getQuestion() {
+        return question;
     }
-//    @Override
-//    public void setCategory(CategoryType category) {
-//        this.category = category;
-//    }
+
+    @Override
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    @Override
+    public String getFeedback() {
+        return feedback;
+    }
+
+    @Override
+    public void setQuestion(String question) {
+        if (question.trim().isEmpty())
+            throw new DomainException("question can't be empty");
+        this.question = question;
+    }
+
+    @Override
+    public void setCorrectAnswer(String correctAnswer) {
+        if (correctAnswer.trim().isEmpty())
+            throw new DomainException("correct answer can't be empty");
+        this.correctAnswer = correctAnswer;
+    }
+
+    @Override
+    public void setFeedback(String feedback) {
+        if (feedback.trim().isEmpty())
+            throw new DomainException("feedback can't be empty");
+        this.feedback = feedback;
+    }
+
+    public String getOtherAnswer() {
+        return otherAnswer;
+    }
+
+    public void setOtherAnswer(String otherAnswer) {
+        this.otherAnswer = otherAnswer;
+    }
 }

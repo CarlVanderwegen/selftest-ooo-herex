@@ -7,21 +7,13 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class CategoryList {
-    private ArrayList<CategoryType> catlist;
+    private static final ArrayList<CategoryType> catlist = new ArrayList<>();
 
-    public CategoryList() {
-        this.catlist = new ArrayList<>();
-        CategoryType cat1 = new MainCategory("cat1", "this is cat 1");
-        System.out.println( "created cat list");
-        catlist.add(cat1);
+    private CategoryList() {
     }
 
-    public ArrayList<CategoryType> getCatlist() {
+    public static ArrayList<CategoryType> getCatlist() {
         return catlist;
-    }
-
-    public void setCatlist(ArrayList<CategoryType> catlist) {
-        this.catlist = catlist;
     }
 
     public void add(CategoryType cat){
@@ -32,7 +24,7 @@ public class CategoryList {
         this.catlist.add(cat);
     }
 
-    public CategoryType getCategory(String catnaam){
+    public static CategoryType getCategory(String catnaam){
         for (CategoryType cat:catlist) {
             if (cat.getNaam().trim().toLowerCase() == catnaam.trim().toLowerCase())
                 return cat;

@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.SelftestFacade;
+import model.category.CategoryList;
 import view.panels.*;
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class SelftestController implements MyObservable {
     public SelftestController(Stage stage) {
         observers = new ArrayList<MyObserver>();
 
-        facade =  new SelftestFacade();
+        facade = new SelftestFacade();
         this.stage = stage;
 
 //        questionDetailPane = new QuestionDetailPane(this);
@@ -68,8 +69,17 @@ public class SelftestController implements MyObservable {
 
     }
 
-    public void addCategoryModal(){
+    public void setQuestionDetailPane(String error){
+        questionDetailPane = new QuestionDetailPane(this, error);
+        Group base = new Group();
+        scene = new Scene(base, 320, 300);
+        base.getChildren().add(questionDetailPane);
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
 
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
 
 
