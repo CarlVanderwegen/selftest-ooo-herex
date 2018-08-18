@@ -2,7 +2,7 @@ package model.vraag;
 
 public enum Vraagtypes {
     JANEE,
-    MultipleChoice;
+    MULTIPLECHOICE;
 
     public static VraagType getVraagType(String s){
         VraagType ret = null;
@@ -10,7 +10,7 @@ public enum Vraagtypes {
             case JANEE:
                 ret =  new JaNee();
                 break;
-            case MultipleChoice:
+            case MULTIPLECHOICE:
                 ret =  new MultipleChoice();
                 break;
             default:

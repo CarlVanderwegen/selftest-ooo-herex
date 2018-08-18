@@ -5,13 +5,15 @@ import model.category.CategoryType;
 import model.category.MainCategory;
 import model.category.SubCategory;
 import model.vraag.JaNee;
+import model.vraag.MultipleChoice;
 import model.vraag.VraagFactory;
 import model.vraag.VraagType;
-import model.vraag.VragenLijst;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class SelftestFacade {
@@ -64,10 +66,28 @@ public class SelftestFacade {
     }
 
     public void addVraag(String category, String question, String correctAnswer, String wrongAnswers, String feedback ){
-        VraagType vraag = VraagFactory.createVraagType("multiplechoice");
-        vraag.setCorrectAnswer(correctAnswer);
-        vraag.setFeedback(feedback);
-        this.getCategory(category).addVraag(vraag);
+        if (wrongAnswers.trim().length()>0){
+            ArrayList<String> other = new ArrayList( Arrays.asList(wrongAnswers.split("\\r?\\n") ) );
+            if (other.size()==1){
+                VraagType vraag = VraagFactory.createVraagType("janee");
+                vraag.setQuestion(question);
+                vraag.setFeedback(feedback);
+                vraag.setCorrectAnswer(correctAnswer);
+                JaNee jnvraag = (JaNee) vraag;
+                jnvraag.setOtherAnswer(wrongAnswers);
+                this.getCategory(category).addVraag(jnvraag);
+            }else {
+                VraagType vraag = VraagFactory.createVraagType("multiplechoice");
+                MultipleChoice mVraag = (MultipleChoice)vraag;
+                mVraag.setQuestion(question);
+                mVraag.setCorrectAnswer(correctAnswer);
+                mVraag.setOtherAnswers(other);
+                mVraag.setFeedback(feedback);
+                this.getCategory(category).addVraag(mVraag);
+            }
+        }else {
+            throw new DomainException("other answers were empty");
+        }
     }
 
 
@@ -76,12 +96,13 @@ public class SelftestFacade {
     private void readPropertysFile(){
         try {
             Properties properties = new Properties();
-            InputStream is = new FileInputStream("evaluation.properties");
+            InputStream is = new FileInputStream("src\\app\\evaluation.properties");
             properties.load(is);
             this.evalMode = properties.getProperty("evaluaiton.score");
+            System.out.println(evalMode);
             is.close();
         }catch (Exception e){
-            System.out.println("couldn't load the properties buddy");
+            System.out.println("couldn't load the properties buddy cause: " + e.getMessage());
         }
 
 

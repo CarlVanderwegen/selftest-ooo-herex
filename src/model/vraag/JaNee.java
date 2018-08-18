@@ -7,8 +7,7 @@ public class JaNee implements VraagType{
     String naam , description;
     CategoryType category;
 
-    String question, correctAnswer, feedback;
-    String otherAnswer;
+    String question, correctAnswer, feedback,otherAnswer;
 
     public JaNee() {
     }

@@ -36,6 +36,9 @@ public class QuestionDetailPane extends GridPane {
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+
+		Label errors = new Label(error);
+		this.add(errors, 1, 12);
         
 		add(new Label("Question: "), 0, 0, 1, 1);
 		questionField = new TextField();
